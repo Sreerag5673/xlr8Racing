@@ -60,6 +60,8 @@ export function ModelDetails() {
                 src={hyronImage}
                 alt="XLR8 HYRON Bi-Fuel ATV"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             {/* Category Badge */}

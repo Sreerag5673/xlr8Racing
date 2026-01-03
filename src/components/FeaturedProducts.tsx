@@ -99,6 +99,8 @@ export function FeaturedProducts() {
                 src={currentProduct.image}
                 alt={currentProduct.name}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute top-3 left-3 sm:top-4 sm:left-4 px-2 py-1 sm:px-3 sm:py-1 bg-accent text-accent-foreground font-bold text-xs sm:text-sm rounded">
                 NEW {currentProduct.year}
@@ -184,12 +186,18 @@ export function FeaturedProducts() {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "w-8 bg-primary"
-                  : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-              }`}
-            />
+              aria-label={`Go to product ${index + 1}`}
+              aria-current={index === currentIndex ? "true" : "false"}
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center p-2"
+            >
+              <span
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? "w-8 bg-primary"
+                    : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>

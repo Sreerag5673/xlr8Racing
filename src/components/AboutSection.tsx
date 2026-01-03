@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Play, Target, Eye, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,14 @@ const values = [
 ];
 
 export function AboutSection() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoId = "dQw4w9WgXcQ";
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+  const handleVideoClick = () => {
+    setVideoLoaded(true);
+  };
+
   return (
     <section id="about" className="py-12 sm:py-16 md:py-24 bg-background relative overflow-hidden">
       {/* Background Pattern */}
@@ -39,24 +48,39 @@ export function AboutSection() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-video rounded-2xl overflow-hidden card-elevated">
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&modestbranding=1"
-                title="Brand Story Video"
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-            
-            {/* Play button overlay for visual effect */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-sm flex items-center justify-center border border-primary/30"
-              >
-                <Play className="w-8 h-8 text-primary fill-primary" />
-              </motion.div>
+            <div className="aspect-video rounded-2xl overflow-hidden card-elevated relative">
+              {!videoLoaded ? (
+                <>
+                  <img
+                    src={thumbnailUrl}
+                    alt="Brand Story Video"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <button
+                    onClick={handleVideoClick}
+                    aria-label="Play Brand Story Video"
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors group cursor-pointer"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="w-20 h-20 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center border-2 border-primary group-hover:bg-primary transition-colors"
+                    >
+                      <Play className="w-8 h-8 text-primary-foreground fill-primary-foreground ml-1" />
+                    </motion.div>
+                  </button>
+                </>
+              ) : (
+                <iframe
+                  src={`https://www.youtube.com/embed/${videoId}?controls=1&modestbranding=1&autoplay=1`}
+                  title="Brand Story Video"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              )}
             </div>
           </motion.div>
 
