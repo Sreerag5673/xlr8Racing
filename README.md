@@ -78,4 +78,4 @@ The `vercel.json` file is already configured with:
 
 ## License
 
-© 2026 XLR8 HYRON. All rights reserved.
+© 2026 XLR8 RACING. All rights reserved.
